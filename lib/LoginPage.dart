@@ -205,7 +205,13 @@ class _LoginPageState extends State {
                             ])),
                         child: Center(
                             child: TextButton(
-                          onPressed: loginClick,
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomePage()),
+                            );
+                          },
                           child: Text(
                             "ログイン",
                             style: TextStyle(
