@@ -49,18 +49,6 @@ class _LoginPageState extends State {
       print(pwd);
     } else {
       _showDialog(context);
-      // AlertDialog(
-      //   title: Text("Alert!!"),
-      //   content: Text(txtUserID.text + "\n" + txtPassword.text + "wrong"),
-      //   actions: <Widget>[
-      //     TextButton(
-      //       child: Text("OK"),
-      //       onPressed: () {
-      //         Navigator.of(context).pop();
-      //       },
-      //     ),
-      //   ],
-      // );
     }
   }
 
