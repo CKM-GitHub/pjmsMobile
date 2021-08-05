@@ -44,7 +44,8 @@ class _LoginPageState extends State {
           jsonObject[0]['Password']; // You can safely access the element here.
     }
     if (user == txtUserID.text && pwd == txtPassword.text) {
-      Navigator.of(context).push(MaterialPageRoute(builder: (_) => HomePage()));
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (_) => HomePage()));
       print(user);
       print(pwd);
     } else {
@@ -205,13 +206,7 @@ class _LoginPageState extends State {
                             ])),
                         child: Center(
                             child: TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => HomePage()),
-                            );
-                          },
+                          onPressed: loginClick,
                           child: Text(
                             "ログイン",
                             style: TextStyle(

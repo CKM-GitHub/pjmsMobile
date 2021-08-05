@@ -13,6 +13,7 @@ Referenced Strings:
   ALERT
   AccessibilityBridge
   AccessibilityChannel
+  AndroidKeyProcessor
   AppLifecycleState.detached
   AppLifecycleState.inactive
   AppLifecycleState.paused
@@ -54,7 +55,6 @@ Referenced Strings:
   DeviceOrientation.landscapeRight
   DeviceOrientation.portraitDown
   DeviceOrientation.portraitUp
-  EDGE_TO_EDGE
   EMAIL_ADDRESS
   FRAMEWORK_CLIENT
   FlutterActivity
@@ -68,13 +68,11 @@ Referenced Strings:
   FlutterSurfaceView
   FlutterTextureView
   FlutterView
-  GeneratedPluginRegistrant
   GeneratedPluginsRegister
   HAS_CHECKED_STATE
   HAS_ENABLED_STATE
   HAS_IMPLICIT_SCROLLING
   HAS_TOGGLED_STATE
-  HC_PLATFORM_VIEW
   HEAVY_IMPACT
   HapticFeedback.vibrate
   HapticFeedbackType.heavyImpact
@@ -82,8 +80,6 @@ Referenced Strings:
   HapticFeedbackType.mediumImpact
   HapticFeedbackType.selectionClick
   II
-  IMMERSIVE
-  IMMERSIVE_STICKY
   INCREASE
   INITIALIZED
   INVERT_COLORS
@@ -109,14 +105,11 @@ Referenced Strings:
   InlinedApi
   InputConnectionAdaptor
   KeyEventChannel
-  KeyboardManager
   LANDSCAPE_LEFT
   LANDSCAPE_RIGHT
-  LEAN_BACK
   LEFT
   LIGHT
   LIGHT_IMPACT
-  LOCALE
   LONG_PRESS
   LTR
   LifecycleChannel
@@ -149,6 +142,7 @@ Referenced Strings:
   PASTE
   PHONE
   PLAIN_TEXT
+  PLATFORM_VIEW
   PORTRAIT_DOWN
   PORTRAIT_UP
   POSTAL_ADDRESS
@@ -173,27 +167,19 @@ Referenced Strings:
   SET_SELECTION
   SET_TEXT
   SHOW_ON_SCREEN
-  SPELLOUT
   STANDARD
   STARTED
   SettingsChannel
   SystemChannel
   SystemChrome.restoreSystemUIOverlays
   SystemChrome.setApplicationSwitcherDe...
-  SystemChrome.setEnabledSystemUIMode
   SystemChrome.setEnabledSystemUIOverlays
   SystemChrome.setPreferredOrientations
-  SystemChrome.setSystemUIChangeListener
   SystemChrome.setSystemUIOverlayStyle
-  SystemChrome.systemUIChange
   SystemNavigator.pop
   SystemSound.play
   SystemSoundType.alert
   SystemSoundType.click
-  SystemUiMode.edgeToEdge
-  SystemUiMode.immersive
-  SystemUiMode.immersiveSticky
-  SystemUiMode.leanBack
   SystemUiOverlay.bottom
   SystemUiOverlay.top
   TAP
@@ -235,7 +221,6 @@ Referenced Strings:
   TextInputType.emailAddress
   TextInputType.multiline
   TextInputType.name
-  TextInputType.none
   TextInputType.number
   TextInputType.phone
   TextInputType.text
@@ -246,7 +231,6 @@ Referenced Strings:
   URL
   UTF8
   V:
-  VD_PLATFORM_VIEW
   VISIBLE_PASSWORD
   WORDS
   accessibility
@@ -265,7 +249,6 @@ Referenced Strings:
   alwaysUse24HourFormat
   android
   android.intent.action.RUN
-  android.type.verbatim
   android.util.LongArray
   android.view.View
   android.widget.Button
@@ -455,7 +438,6 @@ Referenced Strings:
   phoneNumberDevice
   plainCodePoint
   platformBrightness
-  platformViewId
   plugins
   popRoute
   postalAddress
@@ -502,12 +484,9 @@ Referenced Strings:
   streetAddress
   string
   surface
-  synchronizeToNativeViewHierarchy
   systemNavigationBarColor
-  systemNavigationBarContrastEnforced
   systemNavigationBarDividerColor
   systemNavigationBarIconBrightness
-  systemStatusBarContrastEnforced
   tap
   telephoneNumber
   telephoneNumberCountryCode
@@ -528,7 +507,6 @@ Referenced Strings:
   uniqueIdentifier
   updateViewLayout
   username
-  usesVirtualDisplay
   value
   vendorId
   verticalText
@@ -612,7 +590,7 @@ drawable:notification_icon_background:2130968584 => [color:notification_icon_bg_
 drawable:notification_tile_bg:2130968587 => [drawable:notify_panel_notification_icon_bg:2130968588]
 layout:notification_action:2131165185 => [style:Widget_Compat_NotificationActionContainer:2131361799, dimen:notification_action_icon_size:2130903047, style:Widget_Compat_NotificationActionText:2131361800]
 layout:notification_action_tombstone:2131165186 => [style:Widget_Compat_NotificationActionContainer:2131361799, dimen:notification_action_icon_size:2130903047, style:Widget_Compat_NotificationActionText:2131361800]
-layout:notification_template_custom_big:2131165187 => [dimen:notification_large_icon_height:2130903051, dimen:notification_large_icon_width:2130903052, dimen:notification_main_column_padding_top:2130903053, dimen:notification_content_margin_start:2130903050, dimen:notification_right_side_padding_top:2130903056, layout:notification_template_part_time:2131165190, layout:notification_template_part_chronometer:2131165189, style:TextAppearance_Compat_Notification_Info:2131361795, layout:notification_template_icon_group:2131165188]
+layout:notification_template_custom_big:2131165187 => [dimen:notification_large_icon_height:2130903051, dimen:notification_large_icon_width:2130903052, layout:notification_template_icon_group:2131165188, dimen:notification_right_side_padding_top:2130903056, layout:notification_template_part_time:2131165190, layout:notification_template_part_chronometer:2131165189, style:TextAppearance_Compat_Notification_Info:2131361795, dimen:notification_main_column_padding_top:2130903053, dimen:notification_content_margin_start:2130903050]
 layout:notification_template_icon_group:2131165188 => [dimen:notification_large_icon_height:2130903051, dimen:notification_large_icon_width:2130903052, dimen:notification_big_circle_margin:2130903049, dimen:notification_right_icon_size:2130903055]
 layout:notification_template_part_chronometer:2131165189 => [style:TextAppearance_Compat_Notification_Time:2131361797]
 layout:notification_template_part_time:2131165190 => [style:TextAppearance_Compat_Notification_Time:2131361797]

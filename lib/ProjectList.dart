@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:flutter/material.dart';
+import 'package:pjms/ProjectDetail.dart';
 
 class ProjectList extends StatefulWidget {
   @override
@@ -44,7 +45,10 @@ class _ProjectPageState extends State<ProjectList> {
           if (snapshot.data == null) {
             return Container(child: Center(child: Text("Loading...")));
           } else {
-            return ListView.builder(
+            return ListView.separated(
+              separatorBuilder: (context, index) => Divider(
+                color: Color.fromRGBO(143, 148, 251, 1),
+              ),
               itemCount: snapshot.data.length,
               itemBuilder: (BuildContext context, int index) {
                 return ListTile(
@@ -55,13 +59,14 @@ class _ProjectPageState extends State<ProjectList> {
                   ),*/
                   title: Text(snapshot.data[index].projectName),
                   subtitle: Text(snapshot.data[index].companyName),
+                  trailing: Icon(Icons.arrow_right),
                   onTap: () {
-                    /*Navigator.push(
+                    Navigator.push(
                         context,
                         new MaterialPageRoute(
                             builder: (context) =>
-                                DetailPage(snapshot.data[index])));
-                    */
+                                //DetailPage(snapshot.data[index])));
+                            ProjectDetail(snapshot.data[index].projectCD)));
                   },
                 );
               },
