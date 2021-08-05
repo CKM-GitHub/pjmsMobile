@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 #Wed Aug 04 16:21:25 MMT 2021
 base.0=/Users/kyawthetpaing/Documents/FlutterProject/pjms_git/pjmsMobile/build/app/intermediates/dex/release/minifyReleaseWithR8/classes.dex
+=======
+#Wed Aug 04 12:55:04 MMT 2021
+base.0=C\:\\Flutter-workspace\\pjmsMobile\\build\\app\\intermediates\\dex\\release\\minifyReleaseWithR8\\classes.dex
+path.0=classes.dex
+>>>>>>> d1a86565b0b6b07f38b5038a57ed4c1556b7c08b
 renamed.0=classes.dex
 path.0=classes.dex
