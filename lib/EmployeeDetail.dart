@@ -4,7 +4,8 @@ import 'package:http/http.dart';
 
 class EmployeeDetail extends StatefulWidget {
   final String empdetailCD;
-  EmployeeDetail(this.empdetailCD);
+  final String employeeName;
+  EmployeeDetail(this.empdetailCD,this.employeeName);
 
   @override
   _EmployeeDetailState createState() => _EmployeeDetailState();
@@ -34,6 +35,10 @@ class _EmployeeDetailState extends State<EmployeeDetail> {
       jsonData[0]['EmployeeCD'],
       jsonData[0]['EmployeeName'],
       jsonData[0]['EmployeePhoto'],
+      jsonData[0]['Age'].toString(),
+      jsonData[0]['EmailAddress']== null?'':jsonData[0]['EmailAddress'].toString(),
+      jsonData[0]['SkypeID']== null?'':jsonData[0]['SkypeID'].toString(),
+      jsonData[0]['Github_ID'] == null?'':jsonData[0]['Github_ID'].toString(),
     );
 
     return emp;
@@ -48,7 +53,7 @@ class _EmployeeDetailState extends State<EmployeeDetail> {
             onPressed: () => Navigator.of(context).pop(),
           ),
           backgroundColor: Color.fromRGBO(143, 148, 251, 1),
-          title: Text("スタッフ管理"),
+          title: Text(widget.employeeName),
         ),
         body: FutureBuilder(
             future: _getEmployee(),
@@ -57,7 +62,7 @@ class _EmployeeDetailState extends State<EmployeeDetail> {
               if (snapshot.hasData) {
                 emp = snapshot.data as Employee;
               } else {
-                emp = new Employee('', '', '');
+                emp = new Employee('', '', '', '', '', '', '');
               }
               return snapshot.hasData
                   ? Column(
@@ -79,7 +84,7 @@ class _EmployeeDetailState extends State<EmployeeDetail> {
                         ),
                         Container(
                           margin: EdgeInsets.only(
-                              top: 30, bottom: 0.5, left: 3, right: 3),
+                              top: 15, bottom: 0.5, left: 3, right: 3),
                           padding: EdgeInsets.only(right: 5),
                           child: Column(
                             children: [
@@ -90,6 +95,10 @@ class _EmployeeDetailState extends State<EmployeeDetail> {
                                     color: Color.fromRGBO(143, 148, 251, 1),
                                   ),
                                   W1('スタッフ名', emp.employeeName),
+                                  Divider(
+                                    color: Color.fromRGBO(143, 148, 251, 1),
+                                  ),
+                                  W1('年齢', emp.age),
                                 ],
                               ),
                             ],
@@ -103,7 +112,37 @@ class _EmployeeDetailState extends State<EmployeeDetail> {
                                   spreadRadius: 1),
                             ],
                           ),
-                          height: 115,
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(
+                              top: 15, bottom: 0.5, left: 3, right: 3),
+                          padding: EdgeInsets.only(right: 5),
+                          child: Column(
+                            children: [
+                              Column(
+                                children: [
+                                  W1('メールアドレス', emp.mailAddress),
+                                  Divider(
+                                    color: Color.fromRGBO(143, 148, 251, 1),
+                                  ),
+                                  W1('Skype ID', emp.skypeID),
+                                  Divider(
+                                    color: Color.fromRGBO(143, 148, 251, 1),
+                                  ),
+                                  W1('Github ID', emp.githubID),
+                                ],
+                              ),
+                            ],
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Color.fromRGBO(143, 148, 251, 1),
+                                  spreadRadius: 1),
+                            ],
+                          ),
                         ),
                         Container(
                             margin: EdgeInsets.only(
@@ -143,6 +182,11 @@ class Employee {
   final String employeeCD;
   final String employeeName;
   final String employeePhoto;
+  final String age;
+  final String mailAddress;
+  final String skypeID;
+  final String githubID;
 
-  Employee(this.employeeCD, this.employeeName, this.employeePhoto);
+  Employee(this.employeeCD, this.employeeName, this.employeePhoto, this.age,
+      this.mailAddress, this.skypeID, this.githubID);
 }

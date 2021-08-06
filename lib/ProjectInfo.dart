@@ -188,7 +188,7 @@ class _ProjectInfoState extends State<ProjectInfo> {
                             ],
                           )
                         : Center(
-                            child: Text("Loading"),
+                            child: CircularProgressIndicator(),
                           );
                   })
             ],

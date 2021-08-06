@@ -12,13 +12,30 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   var currentPage = DrawerSections.dashboard;
 
+  var currentBottomPage = PageList.System;
+  int _selectedIndex = 0;
+  void onTabTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+      if (_selectedIndex == 0) {
+        currentBottomPage = PageList.System;
+      } else if (_selectedIndex == 1) {
+        currentBottomPage = PageList.Seisaku;
+      }else if (_selectedIndex == 2) {
+        currentBottomPage = PageList.CAD;
+      }else if (_selectedIndex == 3) {
+        currentBottomPage = PageList.ISO;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var container;
     if (currentPage == DrawerSections.dashboard) {
       container = DashboardPage();
     } else if (currentPage == DrawerSections.ProjectList) {
-      container = ProjectList();
+      container = ProjectList('1');
     }else if (currentPage == DrawerSections.EmployeeList) {
       container = EmployeeList();
     }
@@ -33,6 +50,36 @@ class _HomePageState extends State<HomePage> {
         title: Text("プロジェクト管理"),
       ),
       body: container,
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: onTabTapped,
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.limeAccent,
+        unselectedItemColor: Colors.white,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.computer,
+              ),
+              label: 'システム'),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.badge,
+              ),
+              label: '制作'),
+              BottomNavigationBarItem(
+              icon: Icon(
+                Icons.engineering,
+              ),
+              label: 'CAD'),
+              BottomNavigationBarItem(
+              icon: Icon(
+                Icons.iso,
+              ),
+              label: 'ISO'),
+        ],
+        backgroundColor: Color.fromRGBO(143, 148, 251, 1),
+        type: BottomNavigationBarType.fixed,
+      ),
       drawer: Drawer(
         child: SingleChildScrollView(
           child: Container(
@@ -118,4 +165,11 @@ enum DrawerSections {
   dashboard,
   ProjectList,
   EmployeeList,
+}
+
+enum PageList {
+  System,
+  Seisaku,
+  CAD,
+  ISO,
 }

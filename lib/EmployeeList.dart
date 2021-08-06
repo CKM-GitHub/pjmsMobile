@@ -66,7 +66,7 @@ class _EmpListPageState extends State<EmployeeList> {
                         context,
                         new MaterialPageRoute(
                             builder: (context) => EmployeeDetail(
-                                snapshot.data[index].employeeCD)));
+                                snapshot.data[index].employeeCD,snapshot.data[index].employeeName)));
                   },
                 );
               },
