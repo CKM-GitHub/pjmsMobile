@@ -33,7 +33,7 @@ class _ProjectDetailPageState extends State<ProjectDetail> {
     List<ProjectDetailModal> projectdetail = [];
     for (var p in jsonData) {
       ProjectDetailModal pd = ProjectDetailModal(
-          p["EmployeCD"],
+          p['EmployeeCD'] == null ? '' : p['EmployeeCD'],
           p['EmployeeName'] == null ? '' : p['EmployeeName'],
           p['Role'] == null ? '' : p['Role'],
           p['EmployeePhoto'] == null ? '' : p['EmployeePhoto']);
@@ -102,7 +102,7 @@ class _ProjectDetailPageState extends State<ProjectDetail> {
           title: Text("プロジェクト管理"),
         ),
         body: SingleChildScrollView(
-          child: Stack(
+          child: Column(
             children: [
               FutureBuilder(
                 future: _getProjectDetail(),
@@ -266,7 +266,9 @@ class _ProjectDetailPageState extends State<ProjectDetail> {
                   })
             ],
           ),
-        ));
+        )
+
+    );
   }
 }
 
