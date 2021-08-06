@@ -35,7 +35,8 @@ class _ProjectDetailPageState extends State<ProjectDetail> {
       ProjectDetailModal pd = ProjectDetailModal(
           p["EmployeCD"],
           p['EmployeeName'] == null ? '' : p['EmployeeName'],
-          p['Role'] == null ? '' : p['Role']);
+          p['Role'] == null ? '' : p['Role'],
+          p['EmployeePhoto'] == null ? '' : p['EmployeePhoto']);
       projectdetail.add(pd);
     }
     return projectdetail;
@@ -102,7 +103,43 @@ class _ProjectDetailPageState extends State<ProjectDetail> {
         ),
         body: SingleChildScrollView(
           child: Stack(
-            children: [ 
+            children: [
+              FutureBuilder(
+                future: _getProjectDetail(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  print(snapshot.data);
+                  if (snapshot.data == null) {
+                    return Container(child: Center(child: Text("Loading...")));
+                  } else {
+                    return ListView.separated(
+                      separatorBuilder: (context, index) => Divider(
+                        color: Color.fromRGBO(143, 148, 251, 1),
+                      ),
+                      itemCount: snapshot.data.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return ListTile(
+                          leading: CircleAvatar(
+                            backgroundImage: NetworkImage(
+                                'http://163.43.113.92/HR_Management/Photo/' +
+                                    snapshot.data[index].employeePhoto),
+                          ),
+                          title: Text(snapshot.data[index].employeeName),
+                          subtitle: Text(snapshot.data[index].employeeCD),
+                          trailing: Icon(Icons.arrow_right),
+                          onTap: () {
+                            /*Navigator.push(
+                         context,
+                       new MaterialPageRoute(
+                            builder: (context) =>
+                                DetailPage(snapshot.data[index])));
+                    */
+                          },
+                        );
+                      },
+                    );
+                  }
+                },
+              ),
               FutureBuilder(
                   future: _getProjects(),
                   builder: (context, snapshot) {
@@ -292,8 +329,9 @@ class Project {
 
 class ProjectDetailModal {
   final String employeeCD;
+  final String employeePhoto;
   final String employeeName;
   final String role;
 
-  ProjectDetailModal(this.employeeCD, this.employeeName, this.role);
+  ProjectDetailModal(this.employeeCD, this.employeeName, this.role,this.employeePhoto);
 }
