@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:flutter/material.dart';
-import 'package:pjms/ProjectDetail.dart';
+
+import 'ProjectDetailMenu.dart';
 
 class ProjectList extends StatefulWidget {
   @override
@@ -29,7 +30,11 @@ class _ProjectPageState extends State<ProjectList> {
 
     List<Project> project = [];
     for (var p in jsonData) {
-      Project pjt = Project(p["ProjectCD"], p["ProjectName"], p['ProjectTypeName'] == null? '': p['ProjectTypeName'],p['CompanyName'] == null?'':p['CompanyName']);
+      Project pjt = Project(
+          p["ProjectCD"],
+          p["ProjectName"],
+          p['ProjectTypeName'] == null ? '' : p['ProjectTypeName'],
+          p['CompanyName'] == null ? '' : p['CompanyName']);
       project.add(pjt);
     }
     return project;
@@ -66,7 +71,8 @@ class _ProjectPageState extends State<ProjectList> {
                         new MaterialPageRoute(
                             builder: (context) =>
                                 //DetailPage(snapshot.data[index])));
-                            ProjectDetail(snapshot.data[index].projectCD)));
+                                //ProjectDetail(snapshot.data[index].projectCD)));
+                                ProjectDetailMenu(snapshot.data[index].projectCD,snapshot.data[index].projectName)));
                   },
                 );
               },
@@ -84,5 +90,6 @@ class Project {
   final String projectTypeName;
   final String companyName;
 
-  Project(this.projectCD, this.projectName, this.projectTypeName,this.companyName);
+  Project(
+      this.projectCD, this.projectName, this.projectTypeName, this.companyName);
 }

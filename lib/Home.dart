@@ -25,15 +25,15 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
+        /*leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.black),
             onPressed: () => Navigator.of(context).pop(),
-        ), 
+        ), */
         backgroundColor: Color.fromRGBO(143, 148, 251, 1),
         title: Text("プロジェクト管理"),
       ),
       body: container,
-      endDrawer: Drawer(
+      drawer: Drawer(
         child: SingleChildScrollView(
           child: Container(
             child: Column(
