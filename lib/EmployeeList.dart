@@ -52,11 +52,11 @@ class _EmpListPageState extends State<EmployeeList> {
               itemCount: snapshot.data.length,
               itemBuilder: (BuildContext context, int index) {
                 return ListTile(
-                  //       leading: CircleAvatar(
-                  //         backgroundImage: NetworkImage(
-                  //             'http://163.43.113.92/HR_Management/Photo/' +
-                  //                 snapshot.data[index].employeePhoto),
-                  //       ),
+                  leading: CircleAvatar(
+                    backgroundImage: NetworkImage(
+                        'http://163.43.113.92/HR_Management/Photo/' +
+                            snapshot.data[index].employeePhoto),
+                  ),
                   title: Text(snapshot.data[index].employeeName),
                   subtitle: Text(snapshot.data[index].employeeCD),
                   trailing: Icon(Icons.arrow_right),
