@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:flutter/material.dart';
+import 'package:pjms/EmployeeDetail.dart';
 
 class EmployeeList extends StatefulWidget {
   @override
@@ -61,12 +62,11 @@ class _EmpListPageState extends State<EmployeeList> {
                   subtitle: Text(snapshot.data[index].employeeCD),
                   trailing: Icon(Icons.arrow_right),
                   onTap: () {
-                    /*Navigator.push(
-                         context,
-                       new MaterialPageRoute(
-                            builder: (context) =>
-                                DetailPage(snapshot.data[index])));
-                    */
+                    Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                            builder: (context) => EmployeeDetail(
+                                snapshot.data[index].employeeCD)));
                   },
                 );
               },
