@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'ProjectDetailMenu.dart';
 
 class ProjectList extends StatefulWidget {
+  final String projectType;
+  ProjectList(this.projectType);
   @override
   _ProjectPageState createState() => _ProjectPageState();
 }
