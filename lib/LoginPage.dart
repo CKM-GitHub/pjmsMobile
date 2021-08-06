@@ -43,14 +43,36 @@ class _LoginPageState extends State {
       pwd =
           jsonObject[0]['Password']; // You can safely access the element here.
     }
-    if (user == txtUserID.text && pwd == txtPassword.text) {
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (_) => HomePage()));
+    if (txtUserID.text == '' && txtPassword.text == '') {
+      _showEmptyDialog(context);
+    } else if (user == txtUserID.text && pwd == txtPassword.text) {
+      Navigator.of(context).push(MaterialPageRoute(builder: (_) => HomePage()));
       print(user);
       print(pwd);
     } else {
       _showDialog(context);
     }
+  }
+
+// ignore: unused_element
+  void _showEmptyDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text("Alert!!"),
+          content: new Text("Please fill Username and Password!"),
+          actions: <Widget>[
+            new TextButton(
+              child: new Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
 // ignore: unused_element
