@@ -11,14 +11,36 @@ class ProjectDetail extends StatefulWidget {
 }
 
 class _ProjectDetailPageState extends State<ProjectDetail> {
-  /*String _projectCD = '';
-  String _projectName = '';
-  String _projectTypeName = '';
-  String _companyName = '';
-  String _personInCharege = '';
-  String _relatedCompanyName = '';*/
+  Future<List<ProjectDetailModal>> _getProjectDetail() async {
+    String username = 'KTP';
+    String password = 'KTP12345!';
+    String basicAuth =
+        'Basic ' + base64Encode(utf8.encode('$username:$password'));
+    print(basicAuth);
 
-  // ignore: unused_element
+    Response r = await post(
+        Uri.parse(
+            'http://163.43.113.92/PJMS/api/ProjectListApi/GetProjectDetail'),
+        headers: <String, String>{
+          'authorization': basicAuth
+        },
+        body: <String, String>{
+          'ProjectCD': widget.detailCD,
+        });
+
+    var jsonData = jsonDecode(jsonDecode(r.body));
+
+    List<ProjectDetailModal> projectdetail = [];
+    for (var p in jsonData) {
+      ProjectDetailModal pd = ProjectDetailModal(
+          p["EmployeCD"],
+          p['EmployeeName'] == null ? '' : p['EmployeeName'],
+          p['Role'] == null ? '' : p['Role']);
+      projectdetail.add(pd);
+    }
+    return projectdetail;
+  }
+
   Future<Project> _getProjects() async {
     String username = 'KTP';
     String password = 'KTP12345!';
@@ -38,28 +60,33 @@ class _ProjectDetailPageState extends State<ProjectDetail> {
     dynamic jsonData = jsonDecode(jsonDecode(r.body));
 
     Project p = new Project(
-        jsonData[0]['ProjectCD'],
-        jsonData[0]['ProjectName'],
-        jsonData[0]['ProjectTypeName'],
-        jsonData[0]['CompanyName'],
-        jsonData[0]['PersonInCharge'],
-        jsonData[0]['RelatedCompanyName']);
+      jsonData[0]['ProjectCD'],
+      jsonData[0]['ProjectName'],
+      jsonData[0]['ProjectTypeName'],
+      jsonData[0]['CompanyName'],
+      jsonData[0]['PersonInCharge'],
+      jsonData[0]['RelatedCompanyName'] == null
+          ? ''
+          : jsonData[0]['RelatedCompanyName'],
+      jsonData[0]['ContractAmount'] == null
+          ? ''
+          : jsonData[0]['ContractAmount'].toString(),
+      jsonData[0]['ContractDate'] == null ? '' : jsonData[0]['ContractDate'],
+      jsonData[0]['DeliveryDate'] == null ? '' : jsonData[0]['DeliveryDate'],
+      jsonData[0]['StartDate'] == null ? '' : jsonData[0]['StartDate'],
+      jsonData[0]['PlanEndDate'] == null ? '' : jsonData[0]['PlanEndDate'],
+      jsonData[0]['EndDate'] == null ? '' : jsonData[0]['EndDate'],
+      jsonData[0]['ProgressName'] == null ? '' : jsonData[0]['ProgressName'],
+      jsonData[0]['ProgressRate'] == null
+          ? ''
+          : jsonData[0]['ProgressRate'].toString(),
+      jsonData[0]['BPO'] == null ? '' : jsonData[0]['BPO'].toString(),
+      jsonData[0]['BillingTiming'] == null
+          ? ''
+          : jsonData[0]['BillingTiming'].toString(),
+    );
 
     return p;
-    /*_projectCD = jsonData[0]['ProjectCD'];
-    _projectName = jsonData[0]['ProjectName'];
-    _projectName = jsonData[0]['ProjectTypeName'] == null
-        ? ''
-        : jsonData[0]['ProjectTypeName'];
-    _companyName =
-        jsonData[0]['CompanyName'] == null ? '' : jsonData[0]['CompanyName'];
-    _personInCharege = jsonData[0]['PersonInCharge'] == null
-        ? ''
-        : jsonData[0]['PersonInCharge'];
-    _relatedCompanyName = jsonData[0]['RelatedCompanyName'] == null
-        ? ''
-        : jsonData[0]['RelatedCompanyName'];
-        */
   }
 
   @override
@@ -73,74 +100,136 @@ class _ProjectDetailPageState extends State<ProjectDetail> {
           backgroundColor: Color.fromRGBO(143, 148, 251, 1),
           title: Text("プロジェクト管理"),
         ),
-        body: FutureBuilder(
-            future: _getProjects(),
-            builder: (context, snapshot) {
-              Project p;
-              if (snapshot.hasData) {
-                p = snapshot.data as Project;
-              } else {
-                p = new Project('', '', '', '', '', '');
-              }
-              return snapshot.hasData
-                  ? Column(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(
-                              top: 5, bottom: 0.5, left: 3, right: 3),
-                          padding: EdgeInsets.only(right: 5),
-                          child: Column(
+        body: SingleChildScrollView(
+          child: Stack(
+            children: [ 
+              FutureBuilder(
+                  future: _getProjects(),
+                  builder: (context, snapshot) {
+                    Project p;
+                    if (snapshot.hasData) {
+                      p = snapshot.data as Project;
+                    } else {
+                      p = new Project('', '', '', '', '', '', '', '', '', '',
+                          '', '', '', '', '', '');
+                    }
+                    return snapshot.hasData
+                        ? Column(
                             children: [
-                              W1('プロジェクトCD', p.projectCD),
-                              Divider(
-                                color: Color.fromRGBO(143, 148, 251, 1),
+                              Container(
+                                margin: EdgeInsets.only(
+                                    top: 5, bottom: 0.5, left: 3, right: 3),
+                                padding: EdgeInsets.only(right: 5),
+                                child: Column(
+                                  children: [
+                                    W1('プロジェクトCD', p.projectCD),
+                                    Divider(
+                                      color: Color.fromRGBO(143, 148, 251, 1),
+                                    ),
+                                    W1('プロジェクト名', p.projectName),
+                                    Divider(
+                                      color: Color.fromRGBO(143, 148, 251, 1),
+                                    ),
+                                    W1('会社名（お客さん）', p.companyName),
+                                    Divider(
+                                      color: Color.fromRGBO(143, 148, 251, 1),
+                                    ),
+                                    W1('担当者（お客さん）', p.personInCharge),
+                                    Divider(
+                                      color: Color.fromRGBO(143, 148, 251, 1),
+                                    ),
+                                    W1('プロジェクト区分', p.projectTypeName),
+                                    Divider(
+                                      color: Color.fromRGBO(143, 148, 251, 1),
+                                    ),
+                                    W1('関係する会社名', p.relatedCompany),
+                                    Divider(
+                                      color: Color.fromRGBO(143, 148, 251, 1),
+                                    ),
+                                    W1('契約金額（日本円）', p.contractAmount),
+                                  ],
+                                ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Color.fromRGBO(143, 148, 251, 1),
+                                        spreadRadius: 1),
+                                  ],
+                                ),
                               ),
-                              W1('プロジェクト名', p.projectName),
-                              Divider(
-                                color: Color.fromRGBO(143, 148, 251, 1),
+                              Container(
+                                margin: EdgeInsets.only(
+                                    top: 15, bottom: 0.5, left: 3, right: 3),
+                                padding: EdgeInsets.only(right: 5),
+                                child: Column(children: [
+                                  W1('契約日', p.contractDate),
+                                  Divider(
+                                    color: Color.fromRGBO(143, 148, 251, 1),
+                                  ),
+                                  W1('納期', p.deliveryDate),
+                                  Divider(
+                                    color: Color.fromRGBO(143, 148, 251, 1),
+                                  ),
+                                  W1('Start日', p.startDate),
+                                  Divider(
+                                    color: Color.fromRGBO(143, 148, 251, 1),
+                                  ),
+                                  W1('End予定日', p.planEndDate),
+                                  Divider(
+                                    color: Color.fromRGBO(143, 148, 251, 1),
+                                  ),
+                                  W1('End日', p.endDate),
+                                ]),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Color.fromRGBO(143, 148, 251, 1),
+                                        spreadRadius: 1),
+                                  ],
+                                ),
                               ),
-                              W1('会社名（お客さん）', p.companyName),
-                              Divider(
-                                color: Color.fromRGBO(143, 148, 251, 1),
+                              Container(
+                                margin: EdgeInsets.only(
+                                    top: 15, bottom: 50, left: 3, right: 3),
+                                padding: EdgeInsets.only(right: 5),
+                                child: Column(children: [
+                                  W1('状況・進捗', p.progressName),
+                                  Divider(
+                                    color: Color.fromRGBO(143, 148, 251, 1),
+                                  ),
+                                  W1('進捗率（％）', p.progressRate),
+                                  Divider(
+                                    color: Color.fromRGBO(143, 148, 251, 1),
+                                  ),
+                                  W1('BPOの時の契約人数', p.bpo),
+                                  Divider(
+                                    color: Color.fromRGBO(143, 148, 251, 1),
+                                  ),
+                                  W1('請求タイミング', p.billingTiming),
+                                ]),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Color.fromRGBO(143, 148, 251, 1),
+                                        spreadRadius: 1),
+                                  ],
+                                ),
                               ),
-                              W1('担当者（お客さん）', p.personInCharge),
-                              Divider(
-                                color: Color.fromRGBO(143, 148, 251, 1),
-                              ),
-                              W1('プロジェクト区分', p.projectTypeName),
-                              Divider(
-                                color: Color.fromRGBO(143, 148, 251, 1),
-                              ),
-                              W1('関係する会社名', p.relatedCompany),
                             ],
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Color.fromRGBO(143, 148, 251, 1),
-                                  spreadRadius: 1),
-                            ],
-                          ),
-                          height: 381,
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(
-                              top: 5, bottom: 0.5, left: 3, right: 3),
-                          padding: EdgeInsets.only(right: 5),
-                          child: Column(
-                            children: [
-                              
-                            ]
                           )
-                        ),
-                      ],
-                    )
-                  : Center(
-                      child: Text("There is no Data"),
-                    );
-            }));
+                        : Center(
+                            child: Text("Loading"),
+                          );
+                  })
+            ],
+          ),
+        ));
   }
 }
 
@@ -171,7 +260,40 @@ class Project {
   final String companyName;
   final String personInCharge;
   final String relatedCompany;
+  final String contractAmount;
+  final String contractDate;
+  final String deliveryDate;
+  final String startDate;
+  final String planEndDate;
+  final String endDate;
+  final String progressName;
+  final String progressRate;
+  final String bpo;
+  final String billingTiming;
 
-  Project(this.projectCD, this.projectName, this.projectTypeName,
-      this.companyName, this.personInCharge, this.relatedCompany);
+  Project(
+      this.projectCD,
+      this.projectName,
+      this.projectTypeName,
+      this.companyName,
+      this.personInCharge,
+      this.relatedCompany,
+      this.contractAmount,
+      this.contractDate,
+      this.deliveryDate,
+      this.startDate,
+      this.planEndDate,
+      this.endDate,
+      this.progressName,
+      this.progressRate,
+      this.bpo,
+      this.billingTiming);
+}
+
+class ProjectDetailModal {
+  final String employeeCD;
+  final String employeeName;
+  final String role;
+
+  ProjectDetailModal(this.employeeCD, this.employeeName, this.role);
 }
