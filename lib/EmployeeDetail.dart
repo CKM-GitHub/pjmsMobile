@@ -69,7 +69,7 @@ class _EmployeeDetailState extends State<EmployeeDetail> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Container(
-                          padding: EdgeInsets.only(top: 50),
+                          padding: EdgeInsets.only(top: 20),
                           child: Column(
                             children: [
                               CircleAvatar(

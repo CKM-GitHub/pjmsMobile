@@ -35,9 +35,26 @@ class _HomePageState extends State<HomePage> {
     if (currentPage == DrawerSections.dashboard) {
       container = DashboardPage();
     } else if (currentPage == DrawerSections.ProjectList) {
-      container = ProjectList('1');
+      if(currentBottomPage == PageList.System){
+        container = ProjectList('01');
+      }else if(currentBottomPage == PageList.Seisaku){
+        container = ProjectList('02');
+      }else if(currentBottomPage == PageList.CAD){
+        container = ProjectList('03');
+      }else if(currentBottomPage == PageList.ISO){
+        container = ProjectList('04');
+      }
     }else if (currentPage == DrawerSections.EmployeeList) {
-      container = EmployeeList();
+      if(currentBottomPage == PageList.System){
+        container = EmployeeList('1');
+      }else if(currentBottomPage == PageList.Seisaku){
+        container = EmployeeList('2');
+      }else if(currentBottomPage == PageList.CAD){
+        container = EmployeeList('3');
+      }else if(currentBottomPage == PageList.ISO){
+        container = EmployeeList('4');
+      }
+        
     }
 
     return Scaffold(
@@ -50,7 +67,10 @@ class _HomePageState extends State<HomePage> {
         title: Text("プロジェクト管理"),
       ),
       body: container,
-      bottomNavigationBar: BottomNavigationBar(
+      
+      bottomNavigationBar:Container(
+        child:currentPage == DrawerSections.dashboard?Container()
+        :BottomNavigationBar(
         onTap: onTabTapped,
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.limeAccent,
@@ -79,6 +99,7 @@ class _HomePageState extends State<HomePage> {
         ],
         backgroundColor: Color.fromRGBO(143, 148, 251, 1),
         type: BottomNavigationBarType.fixed,
+      ),
       ),
       drawer: Drawer(
         child: SingleChildScrollView(

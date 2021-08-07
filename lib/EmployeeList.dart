@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:pjms/EmployeeDetail.dart';
 
 class EmployeeList extends StatefulWidget {
+  final String employeeType;
+  EmployeeList(this.employeeType);
+
   @override
   _EmpListPageState createState() => _EmpListPageState();
 }
@@ -23,6 +26,7 @@ class _EmpListPageState extends State<EmployeeList> {
         },
         body: <String, String>{
           'EmployeeCD': '',
+          'EmployeeType':widget.employeeType,
         });
 
     var jsonData = jsonDecode(jsonDecode(r.body));
@@ -30,7 +34,7 @@ class _EmpListPageState extends State<EmployeeList> {
     List<Employee> employee = [];
     for (var e in jsonData) {
       Employee emp =
-          Employee(e["EmployeeCD"], e["EmployeeName"], e["EmployeePhoto"]);
+          Employee(e["EmployeeCD"], e["EmployeeName"], e["EmployeePhoto"]==null?'NoPhoto.jpg':e["EmployeePhoto"]);
       employee.add(emp);
     }
     return employee;

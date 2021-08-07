@@ -26,6 +26,7 @@ class _ProjectPageState extends State<ProjectList> {
         },
         body: <String, String>{
           'ProjectCD': '',
+          'ProjectTypeCD':widget.projectType,
         });
 
     var jsonData = jsonDecode(jsonDecode(r.body));
