@@ -5,7 +5,7 @@ import 'package:http/http.dart';
 class EmployeeDetail extends StatefulWidget {
   final String empdetailCD;
   final String employeeName;
-  EmployeeDetail(this.empdetailCD,this.employeeName);
+  EmployeeDetail(this.empdetailCD, this.employeeName);
 
   @override
   _EmployeeDetailState createState() => _EmployeeDetailState();
@@ -36,9 +36,13 @@ class _EmployeeDetailState extends State<EmployeeDetail> {
       jsonData[0]['EmployeeName'],
       jsonData[0]['EmployeePhoto'],
       jsonData[0]['Age'].toString(),
-      jsonData[0]['EmailAddress']== null?'':jsonData[0]['EmailAddress'].toString(),
-      jsonData[0]['SkypeID']== null?'':jsonData[0]['SkypeID'].toString(),
-      jsonData[0]['Github_ID'] == null?'':jsonData[0]['Github_ID'].toString(),
+      jsonData[0]['EmailAddress'] == null
+          ? ''
+          : jsonData[0]['EmailAddress'].toString(),
+      jsonData[0]['SkypeID'] == null ? '' : jsonData[0]['SkypeID'].toString(),
+      jsonData[0]['Github_ID'] == null
+          ? ''
+          : jsonData[0]['Github_ID'].toString(),
     );
 
     return emp;
@@ -55,106 +59,123 @@ class _EmployeeDetailState extends State<EmployeeDetail> {
           backgroundColor: Color.fromRGBO(143, 148, 251, 1),
           title: Text(widget.employeeName),
         ),
-        body: FutureBuilder(
-            future: _getEmployee(),
-            builder: (context, snapshot) {
-              Employee emp;
-              if (snapshot.hasData) {
-                emp = snapshot.data as Employee;
-              } else {
-                emp = new Employee('', '', '', '', '', '', '');
-              }
-              return snapshot.hasData
-                  ? Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          padding: EdgeInsets.only(top: 20),
-                          child: Column(
-                            children: [
-                              CircleAvatar(
-                                backgroundImage: NetworkImage(
-                                    'http://163.43.113.92/HR_Management/Photo/' +
-                                        emp.employeePhoto),
-                                radius: 80,
-                                foregroundColor: Colors.red,
-                              )
-                            ],
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(
-                              top: 15, bottom: 0.5, left: 3, right: 3),
-                          padding: EdgeInsets.only(right: 5),
-                          child: Column(
-                            children: [
-                              Column(
-                                children: [
-                                  W1('スタッフCD', emp.employeeCD),
-                                  Divider(
-                                    color: Color.fromRGBO(143, 148, 251, 1),
+        body: SingleChildScrollView(
+          child: FutureBuilder(
+              future: _getEmployee(),
+              builder: (context, snapshot) {
+                Employee emp;
+                if (snapshot.hasData) {
+                  emp = snapshot.data as Employee;
+                } else {
+                  emp = new Employee('', '', '', '', '', '', '');
+                }
+                return snapshot.hasData
+                    ? Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.only(top: 20),
+                            child: Column(
+                              children: [
+                                Container(
+                                  width: 160,
+                                  height: 150,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: Colors.grey.shade300, width: 2),
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                      image: NetworkImage(
+                                          'http://163.43.113.92/HR_Management/Photo/' +
+                                              emp.employeePhoto),
+                                      fit: BoxFit.fill,
+                                    ),
                                   ),
-                                  W1('スタッフ名', emp.employeeName),
-                                  Divider(
-                                    color: Color.fromRGBO(143, 148, 251, 1),
-                                  ),
-                                  W1('年齢', emp.age),
-                                ],
-                              ),
-                            ],
+                                )
+                                // CircleAvatar(
+                                //   backgroundImage: NetworkImage(
+                                //       'http://163.43.113.92/HR_Management/Photo/' +
+                                //           emp.employeePhoto),
+                                //   radius: 80,
+                                //   foregroundColor: Colors.red,
+                                // )
+                              ],
+                            ),
                           ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Color.fromRGBO(143, 148, 251, 1),
-                                  spreadRadius: 1),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(
-                              top: 15, bottom: 0.5, left: 3, right: 3),
-                          padding: EdgeInsets.only(right: 5),
-                          child: Column(
-                            children: [
-                              Column(
-                                children: [
-                                  W1('メールアドレス', emp.mailAddress),
-                                  Divider(
-                                    color: Color.fromRGBO(143, 148, 251, 1),
-                                  ),
-                                  W1('Skype ID', emp.skypeID),
-                                  Divider(
-                                    color: Color.fromRGBO(143, 148, 251, 1),
-                                  ),
-                                  W1('Github ID', emp.githubID),
-                                ],
-                              ),
-                            ],
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Color.fromRGBO(143, 148, 251, 1),
-                                  spreadRadius: 1),
-                            ],
-                          ),
-                        ),
-                        Container(
+                          Container(
                             margin: EdgeInsets.only(
-                                top: 5, bottom: 0.5, left: 3, right: 3),
+                                top: 15, bottom: 0.5, left: 3, right: 3),
                             padding: EdgeInsets.only(right: 5),
-                            child: Column(children: [])),
-                      ],
-                    )
-                  : Center(
-                      child: CircularProgressIndicator(),
-                    );
-            }));
+                            child: Column(
+                              children: [
+                                Column(
+                                  children: [
+                                    W1('スタッフCD', emp.employeeCD),
+                                    Divider(
+                                      color: Color.fromRGBO(143, 148, 251, 1),
+                                    ),
+                                    W1('スタッフ名', emp.employeeName),
+                                    Divider(
+                                      color: Color.fromRGBO(143, 148, 251, 1),
+                                    ),
+                                    W1('年齢', emp.age),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Color.fromRGBO(143, 148, 251, 1),
+                                    spreadRadius: 1),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(
+                                top: 15, bottom: 0.5, left: 3, right: 3),
+                            padding: EdgeInsets.only(right: 5),
+                            child: Column(
+                              children: [
+                                Column(
+                                  children: [
+                                    W1('メールアドレス', emp.mailAddress),
+                                    Divider(
+                                      color: Color.fromRGBO(143, 148, 251, 1),
+                                    ),
+                                    W1('Skype ID', emp.skypeID),
+                                    Divider(
+                                      color: Color.fromRGBO(143, 148, 251, 1),
+                                    ),
+                                    W1('Github ID', emp.githubID),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Color.fromRGBO(143, 148, 251, 1),
+                                    spreadRadius: 1),
+                              ],
+                            ),
+                          ),
+                          Container(
+                              margin: EdgeInsets.only(
+                                  top: 5, bottom: 0.5, left: 3, right: 3),
+                              padding: EdgeInsets.only(right: 5),
+                              child: Column(children: [])),
+                        ],
+                      )
+                    : Center(
+                        child: CircularProgressIndicator(),
+                      );
+              }),
+        ));
   }
 }
 
