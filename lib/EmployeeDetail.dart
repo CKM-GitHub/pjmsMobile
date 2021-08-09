@@ -63,7 +63,7 @@ class _EmployeeDetailState extends State<EmployeeDetail> {
           child: FutureBuilder(
               future: _getEmployee(),
               builder: (context, snapshot) {
-                Employee emp;
+                // Employee emp;
                 if (snapshot.hasData) {
                   emp = snapshot.data as Employee;
                 } else {
@@ -75,31 +75,40 @@ class _EmployeeDetailState extends State<EmployeeDetail> {
                         children: [
                           Container(
                             padding: EdgeInsets.only(top: 20),
-                            child: Column(
-                              children: [
-                                Container(
-                                  width: 160,
-                                  height: 150,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: Colors.grey.shade300, width: 2),
-                                    shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                      image: NetworkImage(
-                                          'http://163.43.113.92/HR_Management/Photo/' +
-                                              emp.employeePhoto),
-                                      fit: BoxFit.fill,
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (_) {
+                                  return FullScreenImage();
+                                }));
+                              },
+                              child: Column(
+                                children: [
+                                  Container(
+                                    width: 160,
+                                    height: 150,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: Colors.grey.shade300,
+                                          width: 2),
+                                      shape: BoxShape.circle,
+                                      image: DecorationImage(
+                                        image: NetworkImage(
+                                            'http://163.43.113.92/HR_Management/Photo/' +
+                                                emp.employeePhoto),
+                                        fit: BoxFit.fill,
+                                      ),
                                     ),
-                                  ),
-                                )
-                                // CircleAvatar(
-                                //   backgroundImage: NetworkImage(
-                                //       'http://163.43.113.92/HR_Management/Photo/' +
-                                //           emp.employeePhoto),
-                                //   radius: 80,
-                                //   foregroundColor: Colors.red,
-                                // )
-                              ],
+                                  )
+                                  // CircleAvatar(
+                                  //   backgroundImage: NetworkImage(
+                                  //       'http://163.43.113.92/HR_Management/Photo/' +
+                                  //           emp.employeePhoto),
+                                  //   radius: 80,
+                                  //   foregroundColor: Colors.red,
+                                  // )
+                                ],
+                              ),
                             ),
                           ),
                           Container(
@@ -179,6 +188,8 @@ class _EmployeeDetailState extends State<EmployeeDetail> {
   }
 }
 
+var emp;
+
 class W1 extends StatefulWidget {
   final String val1;
   final String val2;
@@ -210,4 +221,33 @@ class Employee {
 
   Employee(this.employeeCD, this.employeeName, this.employeePhoto, this.age,
       this.mailAddress, this.skypeID, this.githubID);
+}
+
+class FullScreenImage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Color.fromRGBO(143, 148, 251, 1),
+        title: Text(emp.employeeName),
+      ),
+      body: GestureDetector(
+        child: Center(
+          child: Hero(
+            tag: 'imageHero',
+            child: Image.network(
+              'http://163.43.113.92/HR_Management/Photo/' + emp.employeePhoto,
+            ),
+          ),
+        ),
+        onTap: () {
+          Navigator.pop(context);
+        },
+      ),
+    );
+  }
 }
